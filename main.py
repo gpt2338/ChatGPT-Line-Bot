@@ -57,7 +57,8 @@ def handle_text_message(event):
     user_id = event.source.user_id
     text = event.message.text.strip()
     logger.info(f'{user_id}: {text}')
-
+    global openai_keys
+    global openai_index
     try:
         '''if text.startswith('/註冊'):
             api_key = text[3:].strip()
@@ -75,7 +76,7 @@ def handle_text_message(event):
         if model == None:
             if openai_index == len(openai_keys) - 1:
                 openai_index = 0
-            model_management[str(i)] = OpenAIModel(api_key=openai_keys[openai_index])
+            model_management[user_id] = OpenAIModel(api_key=openai_keys[openai_index])
             openai_index = openai_index + 1
             storage.save({
                 user_id: openai_keys[openai_index]
